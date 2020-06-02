@@ -1,4 +1,6 @@
 resource "aws_s3_bucket" "access_log" {
+  #checkov:skip=CKV_AWS_52:MFA Delete cannot be managed by terraform
+  #checkov:skip=CKV_AWS_18:This is the access log, won't log access to it.
   count = var.enabled ? 1 : 0
 
   bucket = var.log_bucket_name
@@ -30,6 +32,7 @@ resource "aws_s3_bucket" "access_log" {
 }
 
 resource "aws_s3_bucket_public_access_block" "access_log" {
+  #checkov:skip=CKV_AWS_18:This is the log itself.
   count = var.enabled ? 1 : 0
 
   bucket = aws_s3_bucket.access_log[0].id
@@ -41,6 +44,7 @@ resource "aws_s3_bucket_public_access_block" "access_log" {
 }
 
 resource "aws_s3_bucket" "content" {
+  #checkov:skip=CKV_AWS_52:MFA Delete cannot be managed by terraform
   count = var.enabled ? 1 : 0
 
   bucket = var.bucket_name

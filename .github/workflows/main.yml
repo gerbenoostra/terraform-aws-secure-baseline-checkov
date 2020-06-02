@@ -15,23 +15,22 @@ jobs:
     - name: 'Terraform Format'
       run: terraform fmt -check -recursive
 
-  validate-examples:
-    name: Validate examples
-    runs-on: ubuntu-latest
+  check-checkov:
+    name: Check checkov.io
+    runs-on: bridgecrew/checkov
     defaults:
       run:
         shell: bash
-        working-directory: examples
     steps:
-    - uses: hashicorp/setup-terraform@v1
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Check examples
-      env:
-        EXAMPLES: simple external-bucket select-region organization/master organization/member
-      run: |
-        for EXAMPLE in ${EXAMPLES}
-        do
-          echo "Validating $EXAMPLE"...
-          cd $EXAMPLE && terraform init && terraform validate && cd -
-        done
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: 'Checkov check'
+        run: checkov -d ./
+
+      - name: Run Checkov action
+          id: checkov
+          uses: bridgecrewio/checkov-action@master
+          with:
+            directory: modules
+            # skip_check: CKV_AWS_1 # optional: skip a specific check_id
+            quiet: true # optional: display only failed checks

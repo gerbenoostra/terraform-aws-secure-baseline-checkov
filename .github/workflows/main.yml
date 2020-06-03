@@ -14,16 +14,14 @@ jobs:
 
   check-checkov:
     name: Check checkov.io
-    runs-on: bridgecrew/checkov
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash
     steps:
       - name: Checkout
         uses: actions/checkout@master
-      - name: 'Checkov check'
-        run: checkov -d ./
-      - name: Run Checkov action
+      - name: Run Checkov checks
         uses: bridgecrewio/checkov-action@master
         with:
           directory: modules

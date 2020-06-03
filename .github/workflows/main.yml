@@ -20,7 +20,7 @@ jobs:
         shell: bash
     steps:
       - name: Install checkov io
-        run: apt update && apt install python3-pip && pip3 install setuptools checkov
+        run: sudo apt update && sudo apt install python3-pip && pip3 install setuptools checkov
       - name: Checkout
         uses: actions/checkout@master
       - name: Run Checkov checks

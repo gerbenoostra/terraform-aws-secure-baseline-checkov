@@ -27,3 +27,24 @@ jobs:
           directory: modules
           # skip_check: CKV_AWS_1 # optional: skip a specific check_id
           quiet: true # optional: display only failed checks
+
+validate-examples:
+  name: Validate examples
+  runs-on: ubuntu-latest
+  defaults:
+    run:
+      shell: bash
+      working-directory: examples
+  steps:
+    - uses: hashicorp/setup-terraform@v1
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Check examples
+      env:
+        EXAMPLES: simple external-bucket select-region organization/master organization/member
+      run: |
+        for EXAMPLE in ${EXAMPLES}
+        do
+          echo "Validating $EXAMPLE"...
+          cd $EXAMPLE && terraform init && terraform validate && cd -
+        done

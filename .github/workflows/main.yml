@@ -23,9 +23,7 @@ jobs:
         uses: actions/checkout@master
       - name: 'Checkov check'
         run: checkov -d ./
-
       - name: Run Checkov action
-          id: checkov
           uses: bridgecrewio/checkov-action@master
           with:
             directory: modules

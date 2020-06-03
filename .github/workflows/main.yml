@@ -19,12 +19,14 @@ jobs:
       run:
         shell: bash
     steps:
-      - name: Install checkov io
-        run: sudo apt update && sudo apt install python3-pip && pip3 install setuptools checkov
       - name: Checkout
         uses: actions/checkout@master
       - name: Run Checkov checks
-        run: checkov -d ./ --output github_failed_only
+        uses: bridgecrewio/checkov-action@v10
+        with:
+          directory: modules
+          # skip_check: CKV_AWS_1 # optional: skip a specific check_id
+          quiet: true # optional: display only failed checks
 
   validate-examples:
     name: Validate examples

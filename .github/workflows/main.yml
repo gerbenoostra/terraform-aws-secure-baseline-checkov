@@ -1,19 +1,16 @@
 name: Terraform
-on:
-  push:
-    branches:
-    - master
-  pull_request:
+on: push
+
 jobs:
   check-format:
     name: Check format
     runs-on: ubuntu-latest
     steps:
-    - uses: hashicorp/setup-terraform@v1
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: 'Terraform Format'
-      run: terraform fmt -check -recursive
+      - uses: hashicorp/setup-terraform@v1
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: 'Terraform Format'
+        run: terraform fmt -check -recursive
 
   check-checkov:
     name: Check checkov.io

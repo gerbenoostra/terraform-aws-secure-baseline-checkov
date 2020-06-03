@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Run Checkov checks
-        uses: bridgecrewio/checkov-action@master
+        uses: bridgecrewio/checkov-action@v12.0.1
         with:
           directory: modules
           # skip_check: CKV_AWS_1 # optional: skip a specific check_id

@@ -8,6 +8,8 @@ resource "aws_sns_topic" "config" {
   name = var.sns_topic_name
 
   tags = var.tags
+
+  kms_master_key_id = "alias/aws/sns"
 }
 
 resource "aws_config_configuration_recorder" "recorder" {

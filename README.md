@@ -1,8 +1,10 @@
 # terraform-aws-secure-baseline
+Fork of [nozaq's implementation](https://github.com/nozaq/terraform-aws-secure-baseline), with updates to succeed [checkov](https://github.com/bridgecrewio/checkov/) checks.
+This allows your module to use the baseline, while also be validated by checkov.io's checks.
 
-[![Github Actions](https://github.com/nozaq/terraform-aws-secure-baseline/workflows/Terraform/badge.svg)](https://github.com/nozaq/terraform-aws-secure-baseline/actions?workflow=Terraform)
+[![Github Actions](https://github.com/gerbenoostra/terraform-aws-secure-baseline-checkov/workflows/Terraform/badge.svg)](https://github.com/gerbenoostra/terraform-aws-secure-baseline-checkov/actions?workflow=Terraform)
 
-[Terraform Module Registry](https://registry.terraform.io/modules/nozaq/secure-baseline/aws)
+[Terraform Module Registry](https://registry.terraform.io/modules/gerbenoostra/secure-baseline/aws)
 
 A terraform module to set up your AWS account with the reasonably secure configuration baseline.
 Most configurations are based on [CIS Amazon Web Services Foundations] v1.2.0.

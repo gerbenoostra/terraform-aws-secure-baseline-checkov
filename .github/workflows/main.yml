@@ -13,7 +13,7 @@ jobs:
         run: terraform fmt -check -recursive
 
   check-checkov:
-    name: Check checkov.io
+    name: Check checkov.io on modules
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,6 +28,24 @@ jobs:
           # skip_check: CKV_AWS_1 # optional: skip a specific check_id
           # needs v11: quiet: true # optional: display only failed checks
           # but v11 fails to build
+
+  check-checkov-examples:
+    name: Check checkov.io on examples
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Run Checkov checks
+        uses: bridgecrewio/checkov-action@v10
+        with:
+          directory: examples
+          # skip_check: CKV_AWS_1 # optional: skip a specific check_id
+          # needs v11: quiet: true # optional: display only failed checks
+          # but v11 fails to build
+
 
   validate-examples:
     name: Validate examples

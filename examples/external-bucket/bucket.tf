@@ -1,7 +1,20 @@
 resource "aws_s3_bucket" "logs" {
+  #checkov:skip=CKV_AWS_52:MFA Delete cannot be managed by terraform
+  #checkov:skip=CKV_AWS_18:This is the access log, won't log access to it.
+  #checkov:skip=CKV_AWS_21:Won't version the access log
   bucket        = var.audit_s3_bucket_name
   acl           = "private"
   force_destroy = true
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+  versioning {
+    enabled = true
+  }
 }
 
 data "aws_iam_policy_document" "logs_bucket_policy" {

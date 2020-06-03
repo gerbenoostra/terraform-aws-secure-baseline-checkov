@@ -14,37 +14,35 @@ jobs:
 
   check-checkov:
     name: Check checkov.io
-    runs-on: ubuntu-latest
+    runs-on: python:3.8-slim-buster
     defaults:
       run:
         shell: bash
     steps:
+      - name: Install checkov io
+        run: pip install checkov
       - name: Checkout
         uses: actions/checkout@master
       - name: Run Checkov checks
-        uses: bridgecrewio/checkov-action@v12.0.1
-        with:
-          directory: modules
-          # skip_check: CKV_AWS_1 # optional: skip a specific check_id
-          quiet: true # optional: display only failed checks
+        run: checkov -d ./ --output github_failed_only
 
-validate-examples:
-  name: Validate examples
-  runs-on: ubuntu-latest
-  defaults:
-    run:
-      shell: bash
-      working-directory: examples
-  steps:
-    - uses: hashicorp/setup-terraform@v1
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Check examples
-      env:
-        EXAMPLES: simple external-bucket select-region organization/master organization/member
-      run: |
-        for EXAMPLE in ${EXAMPLES}
-        do
-          echo "Validating $EXAMPLE"...
-          cd $EXAMPLE && terraform init && terraform validate && cd -
-        done
+  validate-examples:
+    name: Validate examples
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: examples
+    steps:
+      - uses: hashicorp/setup-terraform@v1
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Check examples
+        env:
+          EXAMPLES: simple external-bucket select-region organization/master organization/member
+        run: |
+          for EXAMPLE in ${EXAMPLES}
+          do
+            echo "Validating $EXAMPLE"...
+            cd $EXAMPLE && terraform init && terraform validate && cd -
+          done

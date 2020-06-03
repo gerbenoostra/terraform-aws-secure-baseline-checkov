@@ -25,8 +25,10 @@ jobs:
         uses: bridgecrewio/checkov-action@v10
         with:
           directory: modules
+          args: --output github_failed_only
           # skip_check: CKV_AWS_1 # optional: skip a specific check_id
-          quiet: true # optional: display only failed checks
+          # needs v11: quiet: true # optional: display only failed checks
+          # but v11 fails to build
 
   validate-examples:
     name: Validate examples

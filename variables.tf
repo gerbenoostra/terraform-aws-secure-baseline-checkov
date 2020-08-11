@@ -228,6 +228,11 @@ variable "config_aggregator_name_prefix" {
 # Variables for cloudtrail-baseline module.
 # --------------------------------------------------------------------------------------------------
 
+variable "cloudtrail_cloudwatch_logs_enabled" {
+  description = "Specifies whether the trail is delivered to CloudWatch Logs."
+  default     = true
+}
+
 variable "cloudtrail_cloudwatch_logs_group_name" {
   description = "The name of CloudWatch Logs group to which CloudTrail events are delivered."
   default     = "cloudtrail-multi-region"
@@ -258,8 +263,13 @@ variable "cloudtrail_name" {
   default     = "cloudtrail-multi-region"
 }
 
+variable "cloudtrail_sns_topic_enabled" {
+  description = "Specifies whether the trail is delivered to a SNS topic."
+  default     = true
+}
+
 variable "cloudtrail_sns_topic_name" {
-  description = "The name of the sns topic to link to the trail."
+  description = "The name of the SNS topic to link to the trail."
   default     = "cloudtrail-multi-region-sns-topic"
 }
 
@@ -298,4 +308,22 @@ variable "guardduty_finding_publishing_frequency" {
 variable "guardduty_invitation_message" {
   description = "Message for invitation."
   default     = "This is an automatic invitation message from guardduty-baseline module."
+}
+
+# --------------------------------------------------------------------------------------------------
+# Variables for securityhub-baseline module.
+# --------------------------------------------------------------------------------------------------
+variable "securityhub_enable_cis_standard" {
+  description = "Boolean whether CIS standard is enabled."
+  default     = true
+}
+
+variable "securityhub_enable_pci_dss_standard" {
+  description = "Boolean whether PCI DSS standard is enabled."
+  default     = false
+}
+
+variable "securityhub_enable_aws_foundational_standard" {
+  description = "Boolean whether AWS Foundations standard is enabled."
+  default     = true
 }
